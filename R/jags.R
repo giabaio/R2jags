@@ -74,7 +74,7 @@
 #' clusters.
 #' @param envir default is .GlobalEnv
 #' @author Yu-Sung Su \email{suyusung@@tsinghua.edu.cn}, Masanao Yajima
-#' \email{yajima@@stat.columbia.edu}
+#' \email{yajima@@stat.columbia.edu}, Gianluca Baio \email{g.baio@ucl.ac.uk}
 #' @references Plummer, Martyn (2003) \dQuote{JAGS: A program for analysis of
 #' Bayesian graphical models using Gibbs sampling.}
 #' \url{http://citeseer.ist.psu.edu/plummer03jags.html}.
@@ -388,6 +388,11 @@ jags <- function( data, inits,
 #                     n.chains = n.chains,
 #                     n.adapt  = 0 )
 #  } else{
+  
+  #### Added GB, June 2021
+  # Starts the clock
+  tic <- proc.time()
+  ####
 
   m <- jags.model(model.file,
                   data     = data,
@@ -416,13 +421,19 @@ jags <- function( data, inits,
                     n.iter     = n.iter,
                     n.burnin   = n.burnin,
                     n.thin     = n.thin )
+  
+  #### Added GB, June 2021
+  # Stops the clock
+  time2run <- proc.time()-tic
+  ####
 
   out <- list( model              = m,
                BUGSoutput         = fit,
                parameters.to.save = parameters.to.save,
                model.file         = model.file,
                n.iter             = n.iter,
-               DIC                = DIC)
+               DIC                = DIC,
+               time2run           = time2run)
 
   class(out) <- "rjags"
   return(out)
