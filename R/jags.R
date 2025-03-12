@@ -181,7 +181,6 @@ jags <- function( data, inits,
   # 'progress.bar' to 'none' and 'quiet' to TRUE, irrespective of what the
   # global values for these options are in the function
   adapt(m,n.iter=n.adapt,progress.bar="none",quiet=TRUE,end.adaptation=TRUE)
-  
   # Updates the model for the burning phase
   .update.jags( 
     m,

@@ -64,7 +64,7 @@ jags2(data, inits, parameters.to.save, model.file="model.bug",
   \item{model.file}{file containing the model written in \code{BUGS}
   code. Alternatively, as in \pkg{R2WinBUGS}, \code{model.file} can be an R
   function that contains a \code{BUGS} model that is written to a
-  temporary model file (see \code{\link{tempfile}}) using \code{\link{write.model}}}
+  temporary model file (see \code{tempfile}) using \code{write.model}}
   \item{n.chains}{number of Markov chains (default: 3)}
   \item{n.iter}{number of total iterations per chain (including burn in;
     default: 2000)}
@@ -108,7 +108,7 @@ jags2(data, inits, parameters.to.save, model.file="model.bug",
       on the R console. Type \dQuote{gui} is a graphical progress bar
       in a new window. The progress bar is suppressed if \code{progress.bar} is
       \dQuote{none}. Default set globally to \dQuote{text}}
-    \item{digits}{as in \code{\link{write.model}} in the \pkg{R2WinBUGS} package:  number of significant digits used for
+      \item{digits}{as in \code{write.model} in the \pkg{R2WinBUGS} package:  number of significant digits used for
   \code{BUGS} input, see \code{\link{formatC}}.  Only used if specifying  a \code{BUGS} model as an R function.}
   \item{RNGname}{the name for random number generator used in JAGS. There are four RNGS
   supplied by the base moduale in JAGS: \code{Wichmann-Hill}, \code{Marsaglia-Multicarry},
@@ -237,12 +237,18 @@ jags2(data, inits, parameters.to.save, model.file="model.bug",
    jagsfit.pD <- jags.parallel(data=jags.data, inits=jags.inits, jags.params,
      n.iter=5000, model.file=model.file, pD=TRUE)
 
+  # Can also compute the DIC using pD (=Dbar-Dhat), via dic.samples(), which
+  # is a closer approximation to the original formulation of Spiegelhalter et
+  # al (2002), instead of pV (=var(deviance)/2), which is the default in JAGS
+   jagsfit.pD <- jags(data=jags.data, inits=jags.inits, jags.params,
+     n.iter=5000, model.file=model.file, pD=TRUE)
+
   # Run jags parallely, no progress bar. R may be frozen for a while,
   # Be patient. Currenlty update afterward does not run parallelly
   #
    jagsfit.p <- jags.parallel(data=jags.data, inits=jags.inits, jags.params,
      n.iter=5000, model.file=model.file)
-
+  
   # display the output
   print(jagsfit)
   plot(jagsfit)
