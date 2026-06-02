@@ -1,6 +1,6 @@
 # R2jags 0.8-10 (dev)
 
-_Octoer 2025_
+_October 2025_
 
 * Add `NEWS.md`, `README.Rmd` (which expands and completes the previous `README.md`), `CONTRIBUTING.md` and `CONDUCT.md`.
 
